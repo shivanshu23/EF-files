@@ -1,0 +1,60 @@
+@model TrainingProject.Models.LoginModel
+
+@{
+    ViewBag.Title = "RegisterUser";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<h2 id="training-heading">Register User</h2>
+@using (Html.BeginForm("RegisterUser", "RegisterUser", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="registerform">
+        <hr />
+        <br />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group" hidden>
+            @Html.LabelFor(model => model.UserID)
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-5" id="formlabel">First Name</label>
+            @Html.TextBoxFor(model => model.FirstName, new {@class="form-control", autocomplete = "off" })            
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-5" id="formlabel">Last Name</label>
+            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", autocomplete = "off" })            
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-5" id="formlabel">Username</label>
+            @Html.TextBoxFor(model => model.Username, new { @class = "form-control", autocomplete = "off" })           
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-5" id="formlabel">Password</label>
+            @Html.PasswordFor(model => model.Password, new { @class = "form-control", autocomplete = "off" })            
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-5" id="formlabel">Select Image</label>
+            <input type="file"  name="ImageFile" required />
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-8" id="formlabel" >
+                <input type="submit" value="Create User" class="btn"/>
+            </div>            
+        </div>
+    </div>
+
+}
+    <div>
+        <br />
+        <br />
+        <h3>
+            @Html.ActionLink("Back to List", "Login", "Login")
+        </h3>
+    </div>
+
