@@ -1,0 +1,307 @@
+Node js : java script run time.
+NMP is a package manager for JS.
+
+Angular Cli is command line interface which helps in gettting anything required for angular.
+
+Angular CLI commands:
+>>>>>>>>>>>ng-new CarApplication 
+> get all the angular packages.
+>it will create a project structure 
+>it will put the test framework
+>it will put a sample code
+>it will put webpack configuration
+>it will put typescript configuration...
+
+>>>>>>>>>>>>> ng serve --open
+> it does compiling + Bundling.
+>it builing the modules.
+> it is taking the whole application in RAM i.e in MEMORY.
+> hosted application in local host.
+
+>>>>>>>>>>> TYPE SCRIPT:
+> tsc : this command compiles all the ts file to JS.
+>Angular is made in TypeScript.
+
+>>>>>>>>>>> node_modules
+> whatever NPM install we do, all these packages of javascript gets copied into the node_modules folder.
+
+>>>>>>>>>>> e2e 
+>end to end test.
+> We write our white box text code here and this White box test is compiled on the source code.
+
+<<<<< There are three files, 
+1. Angular
+2. Node.
+3. Typescript
+So for each Technologies, we need configuration files. i.e.
+1. Angular : Angular.json 
+> which is for angular purpose.
+> Organised in this manner:
+	Root(App) at the top>> CarsApp , CarApp-e2e  
+
+2. Node : Package.json 
+> This file belongs to node. They have dependencies defined.
+> They have Angular dependencies and because of this only angular is installed.
+
+Dependencies: Refers to the core component which will be using in the project.
+
+DevDependencies: Are the things which will not go to production, these will only be used for the development Phase. eg. testing framework, compiler.
+
+3. Typescript :  tsconfig.json.
+> used for typecripting.
+> Defines, how the compilation of typescript should take place.
+
+>>>>>>>>>>>>tslint.json : 
+>Used for linting process
+> LINTING is the process of running a program that will analyse code for potential error.
+
+>>>>>>>>>>>>> ng build 
+> if u want to compile and create a dist folder
+> It compiles your Source and create the output in the dist folder, and you can take this dist folder to the production.
+
+
+>>>>>>>>>> SRC  FOLDER:
+>>>What is Angular?
+>it is a binding framework.
+> Helps to bind the view and the model.
+
+>>>>>>>>> Componement and Module:
+>component has the binding code between the view and the model.
+> it is the binding layer between the model and the UI.
+>We have View, Model and the binding code which is there in between is termed as a COMPONENT.
+
+> Components: It is that part of angular, Which recieves data from UI or events from the UI and sends data to UI
+
+> A group of components is termed as Modules.
+
+At the top we have a MODULE>>> module groups the components and in the components binds the UI and the Model.
+
+>>>>>>>> What is the thing which connects appComponent.ts with app.component.html????????????
+> Decorator i.e: @Component
+> we have used templateUrl: Binds the component with the html.
+> @component comes from angular core, we have imported this on the top.
+>angular core is the core framework of ANGULAR.
+
+>>>>>>>>>>>>>>> What is Module???????
+> group of Components.
+
+>>>>>>>>>>>>>>> @NgModule:
+>Decorator for module
+
+>Declaration in ngModule:  WE have all the components which will be grouped in the AppModule.
+
+> bootstrap : Which is the start up component.
+
+>>>>>>>>>> Main.ts
+> defines the start up modules for the project.
+
+>>>>>>>> index.html:
+> it has <app-root></app-root>
+This is the selector. this is the selection inside which the appComponent html will run.
+>this selector is same as in @Component.
+
+>>>>>>>>>>>>> Workflow of the application:
+> End User loads the index.html file.
+> index.html calls main.ts
+> main.ts calls the Strating module by using platformBrowserDynamic.  eg. AppModule.
+	platformBrowserDynamic is a function to bootstrap angular application.
+> AppModule then loads the appComponents by using bootstrap.
+> appComponennts loads the html. because in the templateUrl the html name is specified.
+> after that binding will start working.
+
+
+
+>>>>>>>>>>>>>> Polyfills.
+It helps you run new Es version JavaScripts on old browser which does not support them.
+
+
+>>>>>>>>>>>> What's the difference between tilde(~) and caret(^) in package.json?
+This concept is called as  Semantic Versioning (semver):
+
+initially we have: 1.0.0
+
+>if u make a change that does not break anything and does not add any new feature, it is just a bug fix.
+then it becomes:
+1.0.1
+
+>if u add a new feature, which does not break anything but adds new functionality. It is a Minor release then it becomes:
+1.1.0
+
+>if u make some changes and the new changhes are not backward compatible then it has a new Major release, it becomes:
+2.0.0
+
+>>>>>>>>>>>>>> We have to specify what kind if updates we wanna accept:
+> if we just wanna accept the PATCH update.
+then use:
+1.0
+1.0.x
+~1.0.4    (tilde)
+
+>if we just wanna download some new feature but not anything which is backward incompatible
+then use:
+1
+1.x
+^1.0.4   (carrot)
+
+
+>>>>>>>>>>>>>>> package.json
+This package.json specifies a starter set of packages that work well together and jointly support many common application scenarios.
+
+>>>>NAME and VERSION:
+>The name and version together form an identifier that is assumed to be completely unique.
+> If you make some changes in the package then the version is also changed.
+> If u don't want to publish your package then Name and Version are optional.
+
+
+>>>>>>>>>> Package-Lock.json:
+if u make your project with version 5.4.4 then someone clones your project and run npm install with the latest version 5.4.7 then there can be a error because of the patch fix.
+to avoid this situation, we need Package-lock.json.
+--Package-lock is a large list of each dependency listed in your package.json,
+	              the specific version that should be installed, 
+	              the location of the module (URI), 
+	              a hash that verifies the integrity of the module,
+	              the list of packages it requires,
+ 	              and a list of dependencies.
+
+
+>>>>>>>> Angular.json:
+1. $schema : The $schema property refers to the Angular CLI implementation file for JSON Schema.
+
+2 . Version: The version property specifies what’s the Angular Workspace schema version which is currently in use.
+
+3. newProjectRoot: The newProjectRoot property specifies where’s the place that new internal applications and libraries (as long as these are generated by 		the CLI) will be placed. Defualt value : porjects.
+
+4. Projects: Includes the configuration of any project in your workspace.
+-- root :The root property specifies what’s the main directory with all project’s files. empty value for the main project but it indicates for a specific directory for internal projects.
+--sourceRoot : Where the source files are placed for the project.
+-- projectType: to specify wheather this project is an Application OR Library.
+--prefix:  specifies that custom prefix which will be applied when generating components or directives using Angular CLI.
+--schematics: 
+
+>>>>>>>>> tsconfig.json :
+The presence of this file indicates that the dicrectory is of a TypeScript Project.
+This file specifies the root files and the compiler options required to compile the project.
+
+
+>>>>>>>>>> CREATING A NEW COMPONENT USING CLI :
+
+It creates a new folder inside of the /app folder based on the name you gave the component.
+Inside, it generates 4 files: CSS, HTML, TS (component class) and a .spec.ts file for unit tests.
+Inside /src/app/app.module.ts it imports the new component, and adds it to the declarations.
+
+>>>>>>>>>>> Lifecycle Hooks in Angular:
+OnChanges : is invoked evertime there is a change in the input property
+OnInit : fired when your component is initialized. Only once per component. code in OnInit will be fired just once.
+DoCheck: fired by angular when it thinks that there is a change.
+AfterContentInit: 
+AfterContentChecked
+AfterViewInit
+AfterViewChecked
+OnDestroy: executes just before angular destroys the component and gernally used for performing cleanups.
+
+
+>>>>>>>>>>>> 2 Way data Binding:
+For taking a label in view:
+<label>name:
+    <input [(ngModel)]="hero.name" placeholder="name">
+  </label>
+
+//[(ngModel)] is Angular's two-way data binding syntax.
+
+Although ngModel is a valid Angular directive, it isn't available by default.
+
+It belongs to the optional FormsModule and you must opt-in to using it.
+
+>>then add FormsModule in @NgModule  > imports:
+ imports: [ 
+    BrowserModule,
+    FormsModule                                   
+  ]
+
+>>>>>You used two-way data binding with the ngModel directive.
+>>>>>You imported the FormsModule in the AppModule so that Angular would recognize and apply the ngModel directive.
+
+
+>>>>>>>>>>>>>>>>> Input/Output in Angular: USed to share data between Angular Components.
+Parent -> Child -------> Input
+Child -> Parent -------> Output
+
+
+1) Parent to child :  using the @Input() decorator to allow data to be passed via the template.
+
+
+>>ViewChild allows a one component to be injected into another, giving the parent access to its attributes and functions. One caveat, however, is that child won’t be available until after the view has been initialized. This means we need to implement the AfterViewInit lifecycle hook to receive the data from the child.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>>>>>>>>>>>>>> ROUTING:
+> Naviagting between Pages.
+> Import {RouterModule) from '@angular/router'
+
+RouterModule.forRoot([
+   {
+      path: 'new-cmp',         //name of the router
+      component:         //name of the class,
+   }
+])
+
+
+
+>>>>>>>>>>>>>>>>> SERVICES:
+> Sometimes we need some code to be used everywhere on the page. eg. for data connection that need to be shared across components.
+Services helps us achieve that.
+
+>>With Services we can access methods and properties across other components in the entire project.
+Commands to create the Services:
+> ng g service myService
+
+>>the files created in the app folder:
+
+1) my-service.service.ts
+
+2) my-service.service.spec.ts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
