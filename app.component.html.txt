@@ -1,0 +1,59 @@
+<div class="container-fluid"> 
+  
+<h1> COURSE ENROLMENT</h1>
+<form #userForm="ngForm">
+
+  {{userForm.value | json}}
+  <hr />
+  {{userModel | json }}
+
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" class="form-control" #name="ngModel" name="userName" [(ngModel)]="userModel.name">
+  </div>
+
+  {{name.pristine}}
+    
+  <div class="form-group">
+      <label>Eamil</label>
+      <input type="email" class="form-control" name="Email" [(ngModel)]="userModel.email">
+    </div>
+
+    <div class="form-group">
+        <label>Phone</label>
+        <input type="tel" class="form-control" name="Phone" [(ngModel)]="userModel.phone">
+      </div>
+
+      <div class="form-group">
+          <select class="custom-select" name="topic"  [(ngModel)]="userModel.topic" >
+              <option value=""> I am Interested in </option>
+              <option *ngFor = "let topic of topics"> {{ topic }}</option>
+          </select>
+        </div>
+
+         <div class="mb-3">
+           <label> Time Preference</label>
+           <div class="form-check">
+             <input class="form-check-input" type="radio" name="timepreferece" value="Morning" [(ngModel)]="userModel.timePreference">
+             <label class="form-check-label">Morning (9AM-12AM) </label>
+           </div>
+           
+           <div class="form-check">
+              <input class="form-check-input" type="radio" name="timepreferece" value="Evening" [(ngModel)]="userModel.timePreference">
+              <label class="form-check-label">Evening (6PM-9PM) </label>
+           </div>
+          </div>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" name="subscribe" [(ngModel)]="userModel.subscribe">
+              <label class="form-check-label"> Send me Prootional Offers </label>
+            </div>
+
+            <button class="btn btn-primary" type="submit"> Submit Form </button> &nbsp;
+            <button class="btn btn-primary" type="reset"> Reset Form </button>
+
+        
+          
+          
+</form>
+
+</div>
