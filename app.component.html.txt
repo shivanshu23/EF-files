@@ -1,25 +1,25 @@
 <div class="container-fluid">
-  <form #productForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+
+  <form #productForm="ngForm" novalidate>
 
     <h3> <b>Insert New Product</b></h3>
-    
+
     <div class="form-group">
-      <input hidden type="text" required #name="ngModel" [class.is-invalid]="productID.invalid && productID.touched" class="form-control"
-        name="productID" [(ngModel)]="userModel.name">
+      <input hidden type="text" required class="form-control" name="productID">
     </div>
 
     <div class="form-group">
       <label>Product Name</label>
+      <input type="text" required class="form-control" name="productName" [(ngModel)]="model.productName" #firstName="ngModel"
+        [ngClass]="{'is-invalid': productForm.submitted && firstName.invalid }">
 
-      <input type="text" required #name="ngModel" [class.is-invalid]="productName.invalid && productName.touched" class="form-control"
-        name="productName" [(ngModel)]="userModel.productName">
-
-      <small class="text-danger" [class.d-none]="productName.valid || productName.untouched"> Product Name is required
-      </small>
+      <div class="invalid-feedback">
+        <small class="text-danger"> Product Name is required </small>
+      </div>
     </div>
 
     <div class="form-group">
-      <select class="custom-select" name="category" [(ngModel)]="userModel.category">
+      <select class="custom-select" name="category">
         <option value=""> Select Category </option>
         <option *ngFor="let category of categories"> {{ category }}</option>
       </select>
@@ -28,48 +28,57 @@
     <div class="form-group">
       <label>Price</label>
 
-      <input type="text" required #name="ngModel" [class.is-invalid]="price.invalid && price.touched" class="form-control"
-        name="price" [(ngModel)]="userModel.price">
+      <input type="text" required class="form-control" name="price" [(ngModel)]="model.price" #price="ngModel"
+        [ngClass]="{'is-invalid': productForm.submitted && price.invalid }">
 
-      <small class="text-danger" [class.d-none]="price.valid || price.untouched"> Price is required </small>
+      <div class="invalid-feedback">
+        <small class="text-danger"> Price is required </small>
+      </div>
     </div>
 
     <div class="form-group">
       <label>Quantity</label>
 
-      <input type="text" required #name="ngModel" [class.is-invalid]="quantity.invalid && quantity.touched" class="form-control"
-        name="quantity" [(ngModel)]="userModel.quantity">
+      <input type="text" required class="form-control" name="quantity" [(ngModel)]="model.quantity" #quantity="ngModel"
+        [ngClass]="{'is-invalid': productForm.submitted && quantity.invalid }">
 
-      <small class="text-danger" [class.d-none]="quantity.valid || quantity.untouched"> Quantity is required </small>
+      <div class="invalid-feedback">
+        <small class="text-danger"> Quantity is required </small>
+      </div>
     </div>
 
     <div class="form-group">
       <label>Visible Date</label>
 
-      <input type="date" required #name="ngModel" [class.is-invalid]="date.invalid && date.touched" class="form-control"
-        name="date" [(ngModel)]="userModel.date">
+      <input type="date" required class="form-control" name="date" [(ngModel)]="model.date" #date="ngModel"
+        [ngClass]="{'is-invalid': productForm.submitted && date.invalid }">
 
-      <small class="text-danger" [class.d-none]="date.valid || date.untouched"> Date is required </small>
+      <div class="invalid-feedback">
+        <small class="text-danger"> Date is required </small>
+      </div>
     </div>
 
     <div class="form-group">
       <label>Description</label>
 
-      <textarea type="text" required #name="ngModel" [class.is-invalid]="description.invalid && quantity.touched" class="form-control"
-        name="description" [(ngModel)]="userModel.description"></textarea>
+      <textarea type="text" required class="form-control" name="description" [(ngModel)]="model.description" #description="ngModel"
+        [ngClass]="{'is-invalid': productForm.submitted && description.invalid }"></textarea>
 
-      <small class="text-danger" [class.d-none]="description.valid || description.untouched"> Description is required
-      </small>
+      <div class="invalid-feedback">
+        <small class="text-danger"> Description is required </small>
+      </div>
     </div>
 
 
     <div class="form-check mb-3">
-      <input class="form-check-input" type="checkbox" name="isActive" [(ngModel)]="userModel.isActive">
+      <input class="form-check-input" type="checkbox" name="isActive" [(ngModel)]="model.isActive" #isActive="ngModel"
+        [ngClass]="{'is-invalid': productForm.submitted && isActive.invalid }">
       <label class="form-check-label"> IsActive </label>
     </div>
 
     <div class="btn">
-      <button [disabled]="productForm.form.invalid" class="btn btn-primary" type="submit"> Submit Form </button> &nbsp;
+      <button class="btn btn-primary" type="submit"> Submit Form </button> &nbsp;
       <button class="btn btn-primary" type="reset"> Reset Form </button>
     </div>
+
   </form>
