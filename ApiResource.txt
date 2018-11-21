@@ -1,0 +1,31 @@
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace PlanyoWebApi.Helpers
+{
+    public class ApiResource
+    {
+        public int UnixTimeStamp { get; set; }
+        public string Md5Hash { get; set; }
+        public string MethodName { get; set; }
+        public string ApiUri { get; set; }
+        public string PlanyoApiKey { get; set; }
+
+        public ApiResource(IConfiguration configuration, string method_name)
+        {
+            string ApiKey = configuration["PlanyoApiKey"];
+            string Hashkey = configuration["PlanyoHashkey"];
+            string ApiUrl = configuration["PlanyoApiUrl"];
+            
+            UnixTimeStamp = Helper.TimeStamp();
+            MethodName = method_name;
+            PlanyoApiKey = ApiKey;
+            ApiUri = $"{ApiUrl}{"?method="}{method_name}";
+            string concatString = $"{Hashkey}{UnixTimeStamp}{method_name}";
+            Md5Hash = Helper.CreateHash(concatString);
+        }
+    }
+}

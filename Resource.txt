@@ -1,0 +1,40 @@
+using Microsoft.AspNetCore.Mvc;
+using RestSharp;
+using PlanyoWebApi.Helpers;
+using Microsoft.Extensions.Configuration;
+using System;
+
+namespace PlanyoWebApi.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ResourcesController : ControllerBase
+    {
+        readonly IConfiguration _configuration;
+        public ResourcesController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        /// <summary>
+        /// List all resources
+        /// </summary>
+        [HttpGet]
+        public IActionResult Get()
+        {
+            ApiResource apiResource = new ApiResource(_configuration, "list_resources");
+            
+            var client = new RestClient(apiResource.ApiUri);
+            var request = new RestRequest(Method.GET);
+
+            request.AddParameter("api_key", apiResource.PlanyoApiKey);
+            request.AddParameter("hash_timestamp", apiResource.UnixTimeStamp);
+            request.AddParameter("hash_key", apiResource.Md5Hash);
+            request.AddHeader("content-type", "application/json");
+            
+            IRestResponse response = client.Execute(request);
+            return Ok(response.Content);
+        }
+    }
+}
+
