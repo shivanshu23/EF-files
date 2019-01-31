@@ -1,0 +1,108 @@
+// Create classes folder from video
+
+// do login function from video.
+
+//service for making the post request
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>START
+
+import {injectable} from '@angular/core';
+
+import { observable } from 'rxjs/observable';
+
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+
+import {Headers, Http, HttpModules } from '@angular/http';
+
+import{HttpHeaders } from '@angular/common/http';
+
+// >>>>>>>>>>>>>>  created class for parameters : import {TokenParams } from '.path';
+
+@injectable()
+export class AuthService{
+
+Accesstoken:string = "";
+constroctor (private http:Http) {}
+
+private TokenAPi = '/plan/login';
+
+login(Username:string ,Password:string):observable<TokenParams>{
+
+var headersForTokenAPI = new Headers(
+{
+'Content-Type': 'application/x-www-form-urlencoded'
+});
+var data = "username=" + Username + "&password=" + Password;   //From the login form
+
+return this.http.post(this.TokenAPI, data , {headers: headersForTokenAPI })
+.map(res => res.json());
+
+}
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>> 8:35 please see.
+
+//login component
+
+export class loginCOmponemnt{
+
+tokenParams : TokenParams;
+
+
+username:string;
+password: string;
+
+constructor{
+private route: Router,
+private authService: AuthService)
+{}
+
+DoLogin() :void
+{
+
+this.authService.login(this.username,this.password)
+.subscribe{
+data =>
+{
+		this.tokenParam = data;
+		this.authService.AccessToken = this.tokenParam.access_token;
+		this.router.navigate(['/  NEXT PAGE']);
+
+
+
+}
+
+};
+}
+}
+>>>>>>>>>>>>>>>>>. 12:30
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
