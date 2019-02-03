@@ -1,0 +1,175 @@
+<div class="mainDiv">
+  <div class="imgcontainer">
+    <img src="https://www.tenforums.com/geek/gars/images/2/types/thumb_Advanced_User_Accounts.png" alt="Avatar" class="avatar">
+  </div>
+
+  <div >
+    <button class="signupBtn" [routerLink]="['/signUp']"> New Sign Up </button>
+    <br><br><br><br>
+  </div>
+
+  <form  (ngSubmit)="onSubmit()">
+  <div class="container">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" [(ngModel)]="username" name="uname" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" [(ngModel)]="password" name="psw" required>
+
+    <button type="submit" class="loginBtn">Login</button>
+  </div>
+</form>
+
+  <!-- <div class="container">
+    <span class="psw">Forgot <a href="#">password?</a></span>
+  </div> -->
+</div>
+
+
+
+
+
+
+
+body {font-family: Arial, Helvetica, sans-serif;}
+
+.mainDiv {
+  border-radius: 20px ;
+  background-color: #f2f2f2;
+  padding: 20px 30px;
+  margin-top: 20px;
+  margin: 10px auto;
+  float: middle;
+  width: 30%;
+}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.loginBtn {
+  width: 100%;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.loginBtn:hover {
+  background-color: chocolate;
+}
+
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+.signupBtn{
+  float: right;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
+  background-color:  #4CAF50; 
+  color: white;
+  padding: 5px 5px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.signupBtn:hover {
+  background-color: chocolate;
+}
+
+img{
+  width: 150px;
+  border-radius: 50%;
+  height:150px;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
+
+
+
+
+
+import { Component, OnInit } from '@angular/core';
+import { User } from '../Classes/User';
+import { LoginService } from '../Services/login.service';
+import { Router } from '@angular/router';
+import { UserViewModel } from '../Model/UserModel';
+import { isNullOrUndefined } from 'util';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent implements OnInit {
+
+  username: string;
+  password: string;
+  submitted = false;
+
+  constructor(
+    private router: Router,
+    private loginService: LoginService) { }
+
+
+  ngOnInit() {
+    const token = localStorage.getItem('token');
+    if (!isNullOrUndefined(token)) {
+      localStorage.removeItem('token');
+    }
+  }
+
+  user: User;
+
+  onSubmit() {
+    debugger;
+    this.submitted = true;
+
+    this.loginService.login(this.username, this.password)
+      .subscribe((result: any ) => {
+        debugger;
+        if (!isNullOrUndefined(result)) {
+          localStorage.setItem('Token', JSON.stringify((result.token)));
+          localStorage.setItem('User ID', JSON.stringify(result.userId));
+          localStorage.setItem('User Name', JSON.stringify(result.firstName));
+          localStorage.setItem('User Email', JSON.stringify(result.mail));
+
+          this.router.navigate(['resource']);
+        }
+      });
+  }
+}
