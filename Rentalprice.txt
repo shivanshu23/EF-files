@@ -1,0 +1,51 @@
+  /// <summary>
+        /// Get Rental price
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("bookings/getRentalPrice")]
+        [ProducesResponseType(typeof(BookingRentalInfoViewModel), (int)HttpStatusCode.PartialContent)]
+        [ProducesResponseType(typeof(IResult), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IResult), (int)HttpStatusCode.InternalServerError)]
+        public async Task<ActionResult<IResult>> GetRentalPrice(int resourceId, DateTime startTime2, DateTime endTime2, DateTime startTime3, DateTime endTime3)
+        {
+            var result = new Result
+            {
+                Operation = Operation.Read,
+                Status = Status.Success
+            };
+            try
+            {
+                var request = new RestRequest();
+
+                request.AddParameter("resource_id", resourceId);
+                request.AddParameter("start_time_2", startTime2);
+                request.AddParameter("end_time_2", endTime2);
+                request.AddParameter("start_time_3", startTime3);
+                request.AddParameter("end_time_3", endTime3);
+
+                request.AddParameter("quantity", 1);
+                
+                var response = await _planyoApiClient.ExecuteApiAsync<PlanyoResponseViewModel<BookingRentalInfoViewModel>>(request, PlanyoEndpoints.GetRentalPrice);
+                if (response.ResponseCode == 0)
+                {
+                    result.Body = response.Data;
+                    result.Message = response.ResponseMessage;
+                    result.StatusCode = HttpStatusCode.OK;
+                    return StatusCode((int)result.StatusCode, result);
+                }
+
+                result.Status = Status.Fail;
+                result.Message = response.ResponseMessage;
+                result.StatusCode = HttpStatusCode.OK;
+                _logger.LogWarning(response.ResponseMessage);
+                return StatusCode((int)HttpStatusCode.OK, result);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Got an error while fetching rental price");
+                result.Message = e.Message;
+                result.Status = Status.Error;
+                result.StatusCode = HttpStatusCode.InternalServerError;
+                return StatusCode((int)HttpStatusCode.InternalServerError, result);
+            }
+        }
